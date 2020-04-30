@@ -3,7 +3,10 @@ enum Gender{
 	female,
 	other
 }
-
+enum AccountType{
+	Guest,
+	Organiser
+}
 enum EventType{
 	Concert,
 	Comedy,

@@ -1,11 +1,14 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digitaleventpass/date_time_picker.dart';
+import 'package:digitaleventpass/main.dart';
 import 'package:digitaleventpass/pages/enums.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:digitaleventpass/post_class.dart';
 
+final _firestore = Firestore.instance;
 class CreateNewEvent extends StatefulWidget {
   @override
   _CreateNewEventState createState() => _CreateNewEventState();
@@ -14,14 +17,16 @@ class CreateNewEvent extends StatefulWidget {
 class _CreateNewEventState extends State<CreateNewEvent> {
   File _image;
   Post _event;
-  String _name;
-  String _description;
-  String _venue;
-  String _imageUrl;
+  String _name = "";
+  String _description = "";
+  String _venue = "";
+  String _imageUrl = "https://d.newsweek.com/en/full/297016/mia-khalifa.jpg";
   DateTime _time;
-  double _duration;
-  EventType _eventType = EventType.Theatre;
+  double _duration =0 ;
+  String _organiserID = uid;
+  String _eventID = "";
 
+  EventType dropDownValue = EventType.Theatre;
 
 
   Future getImage() async {
@@ -113,7 +118,7 @@ class _CreateNewEventState extends State<CreateNewEvent> {
                          },
                        ),
                           DropdownButton<EventType>(
-                            value: _eventType,
+                            value: dropDownValue,
                             items: EventType.values.map((EventType value){
                               return DropdownMenuItem<EventType>(
                               value: value,
@@ -121,7 +126,7 @@ class _CreateNewEventState extends State<CreateNewEvent> {
                               }).toList(),
                             onChanged: (EventType value) {
                               setState(() {
-                                _eventType = value;
+                                dropDownValue = value;
                               });
                             },
 
@@ -189,12 +194,11 @@ class _CreateNewEventState extends State<CreateNewEvent> {
                              ),
                            )
                        ),
-                       FlatButton(child: Text("Save"),
-                         onPressed:()  {
-                            setState(() {
-                              saveEvent();
-                            });
-                         },
+                       FlatButton(child: Text("Save"), onPressed: () {
+                         saveEvent();
+                       print("iski ma ka bhosda");
+                       },
+
 
                        )
                      ],
@@ -207,7 +211,25 @@ class _CreateNewEventState extends State<CreateNewEvent> {
     );
   }
 
-  void saveEvent() {
+  void saveEvent() async {
+    print("+++++++++++++++++++++++++++++++++" + _eventID);
+  _event = new Post(_name, _venue, _organiserID, _time, _duration, _description, _imageUrl, dropDownValue.name);
+  DocumentReference ref = await _firestore.collection('events').add({
+    'duration': "bakchodi",
+    'title' : "abbbbbbb",
+//    'eventTime' : _event.eventTime.toString(),
+//    'eventDescription' : _event.eventDescription,
+//    'imageUrl' : _event.imageUrl,
+//    'venue' : _event.venue,
+//    'organiserID' : _event.organiserId,
+//    'eventType' : _event.eventType,
+  });
+  print("gaanddduu");
+  _eventID = ref.documentID;
 
+  print("22222222222222222222222222222222222" + _eventID);
+  _firestore.collection('events').document(_eventID).updateData({
+    'eventID' : _eventID,
+  });
   }
 }

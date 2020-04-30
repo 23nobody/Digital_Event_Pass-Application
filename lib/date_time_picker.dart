@@ -5,6 +5,8 @@ import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 
 class BasicDateField extends StatelessWidget {
 	final format = DateFormat("yyyy-MM-dd");
+	Function onChng;
+	BasicDateField({this.onChng});
 	@override
 	Widget build(BuildContext context) {
 		return Column(children: <Widget>[
@@ -16,7 +18,14 @@ class BasicDateField extends StatelessWidget {
 							context: context,
 							firstDate: DateTime(1900),
 							initialDate: currentValue ?? DateTime.now(),
-							lastDate: DateTime(2100));
+							lastDate: DateTime(2100),
+
+					);
+
+				},
+				onChanged: (value) {
+					print("onchange called");
+					onChng(value);
 				},
 			),
 		]);

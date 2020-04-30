@@ -1,16 +1,24 @@
+import 'package:digitaleventpass/pages/enums.dart';
+
 class Post {
 	String _eventID;
 	String _title;
-	double _lattitude;
-	double _longitude;
-
-	Post(this._title, this._lattitude, this._longitude,
-			this._eventTime, this._duration, this._eventDescription, this._imageUrl);
+	String _venue;
+	String _organiserId;
+	Post(this._title, this._venue, this._organiserId,
+			this._eventTime, this._duration, this._eventDescription, this._imageUrl, this._eventType);
 
 	DateTime _eventTime;
 	double _duration;
 	String _eventDescription;
 	String _imageUrl;
+	String _eventType;
+
+	String get eventType => _eventType;
+
+	set eventType(String value) {
+		_eventType = value;
+	}
 
 	String get eventID => _eventID;
 
@@ -44,23 +52,40 @@ class Post {
 		_eventTime = value;
 	}
 
-	double get longitude => _longitude;
 
-	set longitude(double value) {
-		_longitude = value;
-	}
-
-	double get lattitude => _lattitude;
-
-	set lattitude(double value) {
-		_lattitude = value;
-	}
 
 	set title(String value) {
 		_title = value;
 	}
 
+	String get venue => _venue;
+
+	set venue(String value) {
+		_venue = value;
+	}
+
+	Map<String, dynamic> toJson() =>
+			{
+				'duration': _duration,
+				'title' : _title,
+				'eventTime' : _eventTime,
+				'eventDescription' : _eventDescription,
+				'imageUrl' : _imageUrl,
+				'venue' : _venue,
+				'organiserID' : _organiserId,
+				'eventType' : _eventType,
+			};
+
+	String get organiserId => _organiserId;
+
+	set organiserId(String value) {
+		_organiserId = value;
+	}
+
 }
+
+
+
 
 class Organiser{
 	String organiserID;

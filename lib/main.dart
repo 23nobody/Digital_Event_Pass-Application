@@ -20,7 +20,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_map_location_picker/generated/i18n.dart'
 as location_picker;
 
-
+String uid = "auth pending";
 void main() => runApp(MaterialApp(
   localizationsDelegates: const [
     location_picker.S.delegate,

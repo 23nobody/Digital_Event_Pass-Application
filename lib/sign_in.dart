@@ -5,7 +5,12 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
-final GoogleSignIn googleSignIn = GoogleSignIn();
+final GoogleSignIn googleSignIn = GoogleSignIn(
+	scopes: [
+		'email',
+		'https://www.googleapis.com/auth/contacts.readonly',
+	],
+);
 
 String name;
 String email;
@@ -37,6 +42,7 @@ Future<String> signInWithGoogle(BuildContext context) async {
 	imageUrl = user.photoUrl;
 	uid=user.uid;
 //	IntroScreen.setUid(user.uid);
+	print("bhosadchooooood" + name + email + imageUrl);
 
 	assert(!user.isAnonymous);
 	assert(await user.getIdToken() != null);

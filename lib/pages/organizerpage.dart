@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:digitaleventpass/pages/guest_class.dart';
+import 'package:digitaleventpass/pages/person_class.dart';
 
 class organizerPage extends StatefulWidget {
   @override
